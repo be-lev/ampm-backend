@@ -1,2 +1,2 @@
-# Server setting for an am-pm store demo store
+# Server setting for an am-pm demo store
 by lev berger
