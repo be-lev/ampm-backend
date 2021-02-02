@@ -2,7 +2,7 @@ const dal = require("../data-access-layer/dal");
 
 async function getAllProductsAsync() {
   const sql = `SELECT productId, C.categoryName, name, manufactureDate , expirationDate , price  
-    FROM  products  AS P 
+    FROM products  AS P 
     JOIN categories as C 
     on P.categoryId = C.categoryId`;
 
@@ -16,7 +16,7 @@ async function addProductAsync(product) {
         '${product.categoryId}',
         '${product.name}',
         '${product.manufactureDate}',
-        ${product.expirationDate},
+        '${product.expirationDate}',
         ${product.price})`;
     const info = await dal.executeAsync(sql);
     product.productId = info.insertId;
@@ -31,8 +31,9 @@ async function getCategoryName(categoryId) {
     const sql = `SELECT categoryName 
     FROM categories 
     WHERE categoryId = ${categoryId}`;
-    const categoryId = await dal.executeAsync(sql);
-    return categoryId[0].categoryName
+    const categories = await dal.executeAsync(sql);
+    console.log(categories[0].categoryName);
+    return categories[0].categoryName
 }
 
 async function getAllCategoriesAsync() {
