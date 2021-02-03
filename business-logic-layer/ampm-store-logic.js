@@ -38,13 +38,21 @@ async function getCategoryName(categoryId) {
 
 async function getAllCategoriesAsync() {
     const sql = `SELECT * FROM categories`
-    const genres = await dal.executeAsync(sql);
-    return genres
+    const categories = await dal.executeAsync(sql);
+    return categories
 }
 
+async function getProductsByCategoryIdAsync(categoryId){
+const sql = `SELECT productId, name, manufactureDate , expirationDate , price  
+FROM products where categoryId =${categoryId}`
+const ProductsByCategoryId = await dal.executeAsync(sql);
+return ProductsByCategoryId
+
+}
 module.exports = {
     getAllProductsAsync,
     addProductAsync,
-    getAllCategoriesAsync
+    getAllCategoriesAsync,
+    getProductsByCategoryIdAsync
 
 }

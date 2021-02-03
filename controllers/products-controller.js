@@ -1,3 +1,4 @@
+const { request, response } = require("express");
 const express = require("express");
 const router = express.Router();
 const productsLogic = require("../business-logic-layer/ampm-store-logic");
@@ -25,6 +26,15 @@ router.get("/categories", async(request,response)=>{
     try{
        const categories = await productsLogic.getAllCategoriesAsync();
        response.json(categories) 
+    }catch(err){
+        response.status(500).send(err.message);
+    }
+});
+
+router.get("/products-by-category", async(request,response)=>{
+    try{  
+        const ProductsByCategoryId = await productsLogic.getProductsByCategoryIdAsync();
+        response.json(ProductsByCategoryId) 
     }catch(err){
         response.status(500).send(err.message);
     }
