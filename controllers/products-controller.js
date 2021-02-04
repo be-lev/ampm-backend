@@ -31,11 +31,27 @@ router.get("/categories", async(request,response)=>{
     }
 });
 
-router.get("/products-by-category", async(request,response)=>{
+router.get("/products-by-category/:id", async(request,response)=>{
     try{  
-        const ProductsByCategoryId = await productsLogic.getProductsByCategoryIdAsync();
+        const categoryId= +request.params.id
+        const ProductsByCategoryId = await productsLogic.getProductsByCategoryIdAsync(categoryId);
+        if(!ProductsByCategoryId) {
+            response.status(404).send(`id ${categoryId} not found.`);
+            return;
+        }
         response.json(ProductsByCategoryId) 
     }catch(err){
+        response.status(500).send(err.message);
+    }
+})
+
+router.delete("/:id", async(request,response)=>{
+    try{
+const id = +request.params.id;
+await productsLogic.deleteProductAsync(id)
+response.sendStatus(204)
+    }
+    catch (err) {
         response.status(500).send(err.message);
     }
 })

@@ -49,10 +49,16 @@ const ProductsByCategoryId = await dal.executeAsync(sql);
 return ProductsByCategoryId
 
 }
+
+async function deleteProductAsync(id){
+    const sql = `DELETE FROM products WHERE productId= ${id}`
+    await dal.executeAsync(sql)
+}
 module.exports = {
     getAllProductsAsync,
     addProductAsync,
     getAllCategoriesAsync,
-    getProductsByCategoryIdAsync
+    getProductsByCategoryIdAsync,
+    deleteProductAsync
 
 }
