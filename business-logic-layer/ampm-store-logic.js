@@ -28,7 +28,7 @@ async function addProductAsync(product) {
 }
 
 async function getCategoryName(categoryId) {
-    const sql = `SELECT categoryName 
+    const sql = `SELECT DISTINCT categoryName 
     FROM categories 
     WHERE categoryId = ${categoryId}`;
     const categories = await dal.executeAsync(sql);
@@ -42,14 +42,6 @@ async function getAllCategoriesAsync() {
     return categories
 }
 
-async function getProductsByCategoryIdAsync(categoryId){
-const sql = `SELECT productId, name, manufactureDate , expirationDate , price  
-FROM products where categoryId =${categoryId}`
-const ProductsByCategoryId = await dal.executeAsync(sql);
-return ProductsByCategoryId
-
-}
-
 async function deleteProductAsync(id){
     const sql = `DELETE FROM products WHERE productId= ${id}`
     await dal.executeAsync(sql)
@@ -58,7 +50,6 @@ module.exports = {
     getAllProductsAsync,
     addProductAsync,
     getAllCategoriesAsync,
-    getProductsByCategoryIdAsync,
     deleteProductAsync
 
 }
