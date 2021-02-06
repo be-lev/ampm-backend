@@ -42,4 +42,18 @@ response.sendStatus(204)
     }
 })
 
+router.get("/products-by-category/:categoryName", async(request,response)=>{
+    try{  
+        const categoryName= request.params.categoryName
+        const ProductsByCategoryName = await productsLogic.getProductsByCategoryNameAsync(categoryName);
+        if(!ProductsByCategoryName) {
+            response.status(404).send(`Category ${categoryName} not found.`);
+            return;
+        }
+        response.json(ProductsByCategoryName) 
+    }catch(err){
+        response.status(500).send(err.message);
+    }
+})
+
 module.exports = router;

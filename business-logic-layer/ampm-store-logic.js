@@ -46,10 +46,23 @@ async function deleteProductAsync(id){
     const sql = `DELETE FROM products WHERE productId= ${id}`
     await dal.executeAsync(sql)
 }
+
+async function getProductsByCategoryNameAsync(categoryName){
+    const sql = `SELECT productId, C.categoryName, name, manufactureDate , expirationDate , price  
+    FROM products  AS P 
+    JOIN categories as C 
+    on P.categoryId = C.categoryId 
+    WHERE C.categoryName ='${categoryName}'`
+    const ProductsByCategoryName = await dal.executeAsync(sql);
+    return ProductsByCategoryName
+    
+    }
+    
 module.exports = {
     getAllProductsAsync,
     addProductAsync,
     getAllCategoriesAsync,
-    deleteProductAsync
+    deleteProductAsync,
+    getProductsByCategoryNameAsync
 
 }
